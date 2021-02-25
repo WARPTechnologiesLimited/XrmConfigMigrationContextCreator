@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WARP.XrmConfigMigrationContextCreator</name>
+    </assembly>
+    <members>
+        <member name="T:WARP.XrmConfigMigrationContextCreator.ContextManager">
+            <summary>
+            Class for handling the population of the Fake context.
+            </summary>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.ContextManager.#ctor(FakeXrmEasy.XrmFakedContext)">
+            <summary>
+            Initialises a new instance of the <see cref="T:WARP.XrmConfigMigrationContextCreator.ContextManager"/> class.
+            </summary>
+            <param name="fakedContext">The FakeXrmEasy context to fill.</param>
+        </member>
+        <member name="P:WARP.XrmConfigMigrationContextCreator.ContextManager.FakedContext">
+            <summary>
+            Gets the FakeXrmEasy context.
+            </summary>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.ContextManager.FillContext(System.String)">
+            <summary>
+            Fills the context with the contents of unpacked CRM Configuration Migration Data Utility output.
+            </summary>
+            <param name="unpackedDataFolderPath">Path to the unpacked files folder.</param>
+            <returns>Populated context.</returns>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.ContextManager.FillContext(System.String,System.String)">
+            <summary>
+            Fills the context with the contents of unpacked CRM Configuration Migration Data Utility output.
+            </summary>
+            <param name="dataFilePath">Path to the data.xml file.</param>
+            <param name="schemaFilePath">Path to the data_schema.xml file.</param>
+            <returns>Populated context.</returns>
+        </member>
+        <member name="T:WARP.XrmConfigMigrationContextCreator.DataFileReader">
+            <summary>
+            Class for reading the data.xml file.
+            </summary>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.DataFileReader.#ctor(System.String,System.String)">
+            <summary>
+            Initialises a new instance of the <see cref="T:WARP.XrmConfigMigrationContextCreator.DataFileReader"/> class.
+            </summary>
+            <param name="dataFilePath">Path to the data.xml file.</param>
+            <param name="schemaFilePath">Path to the data_schema.xml file.</param>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.DataFileReader.ReadDataFile">
+            <summary>
+            Reads the data.xml file.
+            </summary>
+            <returns>True if the file was read.</returns>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.DataFileReader.GetEntities">
+            <summary>
+            Gets the entities read from the data.xml file.
+            </summary>
+            <returns>List of Entity objects.</returns>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.DataFileReader.GetRelationships">
+            <summary>
+            Gets the m-m relationships read from the data.xml file.
+            </summary>
+            <returns>List of RelationshipStore objects.</returns>
+        </member>
+        <member name="T:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore">
+            <summary>
+            Container for M-M relationships.
+            </summary>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initialises a new instance of the <see cref="T:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore"/> class.
+            </summary>
+            <param name="relationshipName">Name of the relationship as used in CRM.</param>
+            <param name="intersectEntity">Name of the intersect entity.</param>
+            <param name="entity1LogicalName">Name of Entity 1.</param>
+            <param name="entity1Attribute">Name of keyfield of Entity 1.</param>
+            <param name="entity2LogicalName">Name of Entity 2.</param>
+            <param name="entity2Attribute">Name of keyfield of Entity 2.</param>
+        </member>
+        <member name="P:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.Entity1Id">
+            <summary>
+            Gets or sets the ID of Entity 1.
+            </summary>
+        </member>
+        <member name="P:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.IntersectEntity">
+            <summary>
+            Gets or sets name of the intersect entity.
+            </summary>
+        </member>
+        <member name="P:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.Entity1LogicalName">
+            <summary>
+            Gets or sets name of Entity 1.
+            </summary>
+        </member>
+        <member name="P:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.Entity1Attribute">
+            <summary>
+            Gets or sets name of keyfield of Entity 1.
+            </summary>
+        </member>
+        <member name="P:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.Entity2LogicalName">
+            <summary>
+            Gets or sets name of Entity 2.
+            </summary>
+        </member>
+        <member name="P:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.Entity2Attribute">
+            <summary>
+            Gets or sets name of keyfield of Entity 2.
+            </summary>
+        </member>
+        <member name="P:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.RelationshipName">
+            <summary>
+            Gets or sets name of the relationship as used in CRM.
+            </summary>
+        </member>
+        <member name="P:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.XrmFakedRelationship">
+            <summary>
+            Gets the fake relationship metadata.
+            </summary>
+        </member>
+        <member name="P:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.Relationships">
+            <summary>
+            Gets or sets list of relationship IDs.
+            </summary>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.AddRelationship(System.Guid)">
+            <summary>
+            Adds a relationship to the list.
+            </summary>
+            <param name="entity2Guid">ID of Entity 2.</param>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.Models.ManyToManyRelationshipStore.AddRelationship(System.String)">
+            <summary>
+            Adds a relationship to the list.
+            </summary>
+            <param name="entity2Id">ID of Entity 2.</param>
+        </member>
+        <member name="T:WARP.XrmConfigMigrationContextCreator.Models.Constants">
+            <summary>
+            Container for constants.
+            </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.EntityElementName">
+            <summary> Gets name for entity element. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.NameAttributeName">
+            <summary> Gets name for name attribute. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.TypeAttributeName">
+            <summary> Gets name for type attribute. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.LookuptypeAttributeName">
+            <summary> Gets name for lookup type attribute. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.EntitiesElementName">
+            <summary> Gets name for enitites element. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.RecordElementName">
+            <summary> Gets name for record element. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.FieldElementName">
+            <summary> Gets name for field element. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.ValueAttributeName">
+            <summary> Gets name for value attribute. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.ManyToManyElementName">
+            <summary> Gets name for M-M element. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.ManyToManyRelatiohsipNameAttributeName">
+            <summary> Gets name for m-m name attribute. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.DefaultDataFileName">
+            <summary> Gets default name for data.xml file. </summary>
+        </member>
+        <member name="F:WARP.XrmConfigMigrationContextCreator.Models.Constants.DefaultSchemaFileName">
+            <summary> Gets default name for data_schema.xml file. </summary>
+        </member>
+        <member name="T:WARP.XrmConfigMigrationContextCreator.SchemaHelper">
+            <summary>
+            Class for generating xUnit fixtures from CRM Config Migration Utility exports.
+            </summary>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.SchemaHelper.#ctor">
+            <summary>
+            Initialises a new instance of the <see cref="T:WARP.XrmConfigMigrationContextCreator.SchemaHelper"/> class.
+            </summary>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.SchemaHelper.#ctor(System.String)">
+            <summary>
+            Initialises a new instance of the <see cref="T:WARP.XrmConfigMigrationContextCreator.SchemaHelper"/> class.
+            </summary>
+            <param name="filePath">Path to data_schema.xml file.</param>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.SchemaHelper.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initialises a new instance of the <see cref="T:WARP.XrmConfigMigrationContextCreator.SchemaHelper"/> class.
+            </summary>
+            <param name="schema">data_schema.xml as an XElement.</param>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.SchemaHelper.LoadSchemaFile(System.String)">
+            <summary>
+            Loads the data_schema.xml file.
+            </summary>
+            <param name="filePath">Path to the data_schema.xml file.</param>
+            <returns>True if the file was read and has elements.</returns>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.SchemaHelper.GetFieldSchemaElement(System.String,System.String)">
+            <summary>
+            Gets the XElement for a given entity and fieldname.
+            </summary>
+            <param name="entityName">Entity Logical Name.</param>
+            <param name="fieldName">Field Name in the entitiy.</param>
+            <returns>XElement containing the metadata for that field.</returns>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.SchemaHelper.GenerateAttributeValue(System.String,System.String,System.String)">
+            <summary>
+            Generates a CRM Attribute value for a given value, entitiyname and fieldname.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="entityName">Entity Logical Name.</param>
+            <param name="fieldName">Field Name.</param>
+            <returns>A CRM typed value object.</returns>
+        </member>
+        <member name="M:WARP.XrmConfigMigrationContextCreator.SchemaHelper.GenerateAttributeValue(System.String,System.Xml.Linq.XElement)">
+            <summary>
+            Generates a CRM Attribute value for a given value and field metadata.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="fieldSchema">Metadata for the field.</param>
+            <returns>A CRM typed value object.</returns>
+        </member>
+    </members>
+</doc>
