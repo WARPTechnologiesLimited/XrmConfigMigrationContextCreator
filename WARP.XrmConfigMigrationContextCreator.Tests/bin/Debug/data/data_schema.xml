@@ -1,0 +1,89 @@
+<entities >
+  <entity name="bookableresource" displayname="Auditor" etc="1150" primaryidfield="bookableresourceid" primarynamefield="name" disableplugins="false">
+    <fields>
+      <field displayname="Account" name="accountid" type="entityreference" lookupType="account" />
+      <field displayname="Bookable Resource" name="bookableresourceid" type="guid" primaryKey="true" />
+      <field displayname="Bookings To Drip" name="msdyn_bookingstodrip" type="number" customfield="true" />
+      <field displayname="Coat Size" name="warp_coatsize" type="string" customfield="true" />
+      <field displayname="Contact" name="contactid" type="entityreference" lookupType="contact" />
+      <field displayname="Contractor" name="warp_contractor" type="bool" customfield="true" />
+      <field displayname="Crew Strategy" name="msdyn_crewstrategy" type="optionsetvalue" customfield="true" />
+      <field displayname="Derive Capacity From Group Members" name="msdyn_derivecapacity" type="bool" customfield="true" />
+      <field displayname="Dietary Requirements" name="warp_dietaryrequirements" type="string" customfield="true" />
+      <field displayname="Display On Schedule Board" name="msdyn_displayonscheduleboard" type="bool" customfield="true" />
+      <field displayname="Enable Drip Scheduling" name="msdyn_enabledripscheduling" type="bool" customfield="true" />
+      <field displayname="Enable for Availability Search" name="msdyn_displayonscheduleassistant" type="bool" customfield="true" />
+      <field displayname="Enabled for Field Service Mobile" name="msdyn_enabledforfieldservicemobile" type="bool" customfield="true" />
+      <field displayname="End Location" name="msdyn_endlocation" type="optionsetvalue" customfield="true" />
+      <field displayname="Generic Type (Deprecated)" name="msdyn_generictype" type="optionsetvalue" customfield="true" />
+      <field displayname="Hourly Rate" name="msdyn_hourlyrate" type="money" customfield="true" />
+      <field displayname="Hourly Rate (Base)" name="msdyn_hourlyrate_base" type="money" customfield="true" />
+      <field displayname="Internal Flags" name="msdyn_internalflags" type="string" customfield="true" />
+      <field displayname="Latitude" name="msdyn_latitude" type="float" customfield="true" />
+      <field displayname="Location Timestamp" name="msdyn_locationtimestamp" type="datetime" customfield="true" />
+      <field displayname="Longitude" name="msdyn_longitude" type="float" customfield="true" />
+      <field displayname="Mileage Rate" name="warp_mileagerate" type="optionsetvalue" customfield="true" />
+      <field displayname="Name" name="name" type="string" />
+      <field displayname="Organizational Unit" name="msdyn_organizationalunit" type="entityreference" lookupType="msdyn_organizationalunit" customfield="true" />
+      <field displayname="Pool Type" name="msdyn_pooltype" type="optionsetvaluecollection" customfield="true" />
+      <field displayname="Primary Email" name="msdyn_primaryemail" type="string" customfield="true" />
+      <field displayname="Shoe Size" name="warp_shoesize" type="string" customfield="true" />
+      <field displayname="Start Location" name="msdyn_startlocation" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Target Utilization" name="msdyn_targetutilization" type="number" customfield="true" />
+      <field displayname="Time Off Approval Required" name="msdyn_timeoffapprovalrequired" type="bool" customfield="true" />
+      <field displayname="Time Zone" name="timezone" type="number" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Travel Profile" name="warp_travelprofile" type="string" customfield="true" />
+      <field displayname="User" name="userid" type="entityreference" lookupType="systemuser" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Vendor Code" name="warp_vendorcode" type="string" customfield="true" />
+      <field displayname="Warehouse" name="msdyn_warehouse" type="entityreference" lookupType="msdyn_warehouse" customfield="true" />
+      <field displayname="Resource Type" name="resourcetype" type="optionsetvalue" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="bookableresourcecharacteristic" displayname="Auditor Category" etc="1148" primaryidfield="bookableresourcecharacteristicid" primarynamefield="name" disableplugins="false">
+    <fields>
+      <field displayname="Auditor" name="resource" type="entityreference" lookupType="bookableresource" />
+      <field displayname="Bookable Resource Characteristic" name="bookableresourcecharacteristicid" type="guid" primaryKey="true" />
+      <field displayname="Characteristic" name="characteristic" type="entityreference" lookupType="characteristic" />
+      <field displayname="Name" name="name" type="string" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="characteristic" displayname="Characteristic" etc="1141" primaryidfield="characteristicid" primarynamefield="name" disableplugins="false">
+    <fields>
+      <field displayname="Characteristic" name="characteristicid" type="guid" primaryKey="true" />
+      <field displayname="Characteristic Type" name="characteristictype" type="optionsetvalue" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Description" name="description" type="string" />
+      <field displayname="Name" name="name" type="string" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="systemuser" displayname="User" etc="8" primaryidfield="systemuserid" primarynamefield="fullname" disableplugins="false">
+    <fields>
+      <field displayname="First Name" name="firstname" type="string" />
+      <field displayname="Full Name" name="fullname" type="string" />
+      <field displayname="GDPR Optout" name="msdyn_gdproptout" type="bool" customfield="true" />
+      <field displayname="Government" name="governmentid" type="string" />
+      <field displayname="Job Title" name="jobtitle" type="string" />
+      <field displayname="Last Name" name="lastname" type="string" />
+      <field displayname="Middle Name" name="middlename" type="string" />
+      <field displayname="Mobile Phone" name="mobilephone" type="string" />
+      <field displayname="Primary Email" name="internalemailaddress" type="string" />
+      <field displayname="Title" name="title" type="string" />
+      <field displayname="User" name="systemuserid" type="guid" primaryKey="true" />
+      <field displayname="User Name" name="domainname" type="string" />
+    </fields>
+    <relationships>
+      <relationship name="systemuserprofiles" manyToMany="true" relatedEntityName="systemuserprofiles" m2mTargetEntity="fieldsecurityprofile" m2mTargetEntityPrimaryKey="fieldsecurityprofileid" />
+      <relationship name="systemusersyncmappingprofiles" manyToMany="true" relatedEntityName="systemusersyncmappingprofiles" m2mTargetEntity="syncattributemappingprofile" m2mTargetEntityPrimaryKey="syncattributemappingprofileid" />
+      <relationship name="systemuserroles" manyToMany="true" relatedEntityName="systemuserroles" m2mTargetEntity="role" m2mTargetEntityPrimaryKey="roleid" />
+    </relationships>
+  </entity>
+</entities>
