@@ -25,7 +25,7 @@ namespace WARP.XrmConfigMigrationFixtureCreator.Tests
         public void CanQuerySchema()
         {
             var schemaHelper = new SchemaHelper(@"data\data_schema.xml");
-            var typeName = schemaHelper.GetFieldSchemaElement("bookableresource", "contactid");
+            var typeName = schemaHelper.GetFieldSchemaElement("account", "primarycontactid");
 
             Assert.Equal("entityreference", typeName.Attribute("type")?.Value);
         }
@@ -33,28 +33,28 @@ namespace WARP.XrmConfigMigrationFixtureCreator.Tests
         [Fact]
         public void GenerateCrmFieldValue()
         {
-            const string EntityName = "bookableresource";
+            const string EntityName = "account";
 
             var schemaHelper = new SchemaHelper(@"data\data_schema.xml");
 
             // Lookup
-            var fieldSchema = schemaHelper.GetFieldSchemaElement(EntityName, "contactid");
+            var fieldSchema = schemaHelper.GetFieldSchemaElement(EntityName, "primarycontactid");
             var value = schemaHelper.GenerateAttributeValue(Guid.NewGuid().ToString(), fieldSchema);
             Assert.IsType<EntityReference>(value);
             Assert.Equal("contact", ((EntityReference)value).LogicalName);
 
             // Option Set
-            fieldSchema = schemaHelper.GetFieldSchemaElement(EntityName, "resourcetype");
+            fieldSchema = schemaHelper.GetFieldSchemaElement(EntityName, "accountcategorycode");
             value = schemaHelper.GenerateAttributeValue("3", fieldSchema);
             Assert.IsType<OptionSetValue>(value);
 
             // Money
-            fieldSchema = schemaHelper.GetFieldSchemaElement(EntityName, "msdyn_hourlyrate");
+            fieldSchema = schemaHelper.GetFieldSchemaElement(EntityName, "creditlimit");
             value = schemaHelper.GenerateAttributeValue("£3,000.00", fieldSchema);
             Assert.IsType<decimal>(value);
 
             // bool
-            fieldSchema = schemaHelper.GetFieldSchemaElement(EntityName, "msdyn_displayonscheduleboard");
+            fieldSchema = schemaHelper.GetFieldSchemaElement(EntityName, "creditonhold");
             value = schemaHelper.GenerateAttributeValue("True", fieldSchema);
             Assert.IsType<bool>(value);
             Assert.True((bool)value);
@@ -63,7 +63,7 @@ namespace WARP.XrmConfigMigrationFixtureCreator.Tests
             Assert.False((bool)value);
 
             // DateTime
-            fieldSchema = schemaHelper.GetFieldSchemaElement(EntityName, "msdyn_locationtimestamp");
+            fieldSchema = schemaHelper.GetFieldSchemaElement(EntityName, "createdon");
             value = schemaHelper.GenerateAttributeValue("18/06/2019 00:00:00", fieldSchema);
             Assert.IsType<DateTime>(value);
         }
