@@ -17,4 +17,5 @@ manager.FillContext(Folder);
 `fakedContext` will be populated with the entities in the data extract and available for use in your unit tests.
 
 ## Roadmap
-- Fill M-M Relationships.
+- Fill ActivityParty lists. Currently ignored.
+- Handle Customer and Regarding fields.

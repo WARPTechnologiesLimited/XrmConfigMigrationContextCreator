@@ -36,8 +36,14 @@ namespace WARP.XrmConfigMigrationContextCreator.Models
         /// <summary> Gets name for M-M element. </summary>
         public const string ManyToManyElementName = "m2mrelationship";
 
-        /// <summary> Gets name for m-m name attribute. </summary>
+        /// <summary>
+        /// Gets name for m-m name attribute.
+        /// Misleading. Value is actually the name of the intersect entity.
+        /// </summary>
         public const string ManyToManyRelatiohsipNameAttributeName = "m2mrelationshipname";
+
+        /// <summary> Gets name for activitypointerrecords element. </summary>
+        public const string ActivityPointerRecordsElementName = "activitypointerrecords";
 
         /// <summary> Gets default name for data.xml file. </summary>
         public const string DefaultDataFileName = "data.xml";
