@@ -76,7 +76,7 @@ namespace WARP.XrmConfigMigrationContextCreator
                 where (string)el.Attribute(Constants.NameAttributeName) == fieldName
                 select el;
 
-            return fields.Single();
+            return fields.SingleOrDefault();
         }
 
         /// <summary>
@@ -100,7 +100,13 @@ namespace WARP.XrmConfigMigrationContextCreator
         /// <returns>A CRM typed value object.</returns>
         public dynamic GenerateAttributeValue(string value, XElement fieldSchema)
         {
-            switch (fieldSchema.Attribute("type")?.Value)
+            // TODO: Remove this early exit when implementing Party List.
+            if (string.IsNullOrEmpty(value))
+            {
+                return null;
+            }
+
+            switch (fieldSchema?.Attribute("type")?.Value)
             {
                 case "string":
                     return value;

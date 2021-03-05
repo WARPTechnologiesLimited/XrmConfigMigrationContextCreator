@@ -48,6 +48,7 @@ namespace WARP.XrmConfigMigrationContextCreator
             var entityName = string.Empty;
             Entity entity = null;
             ManyToManyRelationshipStore relationshipStore = null;
+            var isActivityPointer = false;
 
             using (var reader = XmlReader.Create(this.dataFilePath))
             {
@@ -68,17 +69,35 @@ namespace WARP.XrmConfigMigrationContextCreator
                                     break;
                                 case Constants.FieldElementName:
                                     // a field with value.
-                                    var attributeName = reader.GetAttribute(Constants.NameAttributeName);
-                                    var value = reader.GetAttribute(Constants.ValueAttributeName);
-                                    var crmValue = this.schemaHelper.GenerateAttributeValue(value, entityName, attributeName);
+                                    if (isActivityPointer)
+                                    {
+                                        // TODO.
+                                    }
+                                    else
+                                    {
+                                        var attributeName = reader.GetAttribute(Constants.NameAttributeName);
+                                        var value = reader.GetAttribute(Constants.ValueAttributeName);
+                                        var crmValue = this.schemaHelper.GenerateAttributeValue(value, entityName, attributeName);
 
-                                    // add the field to the entity.
-                                    entity?.Attributes.Add(attributeName, crmValue);
+                                        if (crmValue != null)
+                                        {
+                                            // add the field to the entity.
+                                            entity?.Attributes.Add(attributeName, crmValue);
+                                        }
+                                    }
+
                                     break;
                                 case Constants.ManyToManyElementName:
                                     // a m-m relationship.
+                                    // TODO: Is this ok for the relationshipName? Calling it the same as the intersect entity.
+                                    // The name of the xml attribute "m2mrelationshipname" is misleading.
+                                    // The value is actually the name of the intersect entity. Not the relationship name.
+                                    // Example: systemuser M-M with role.
+                                    // Actual metadata: Intersect entity = systemuserroles. Relationship SchemaName = systemuserroles_association.
+                                    // XML Attribute m2mrelationshipname: Value = systemuserroles.
+                                    var relationshipName = reader.GetAttribute(Constants.ManyToManyRelatiohsipNameAttributeName);
                                     relationshipStore = new ManyToManyRelationshipStore(
-                                                            "relationshipName?",
+                                                            relationshipName,
                                                             reader.GetAttribute(Constants.ManyToManyRelatiohsipNameAttributeName),
                                                             entityName,
                                                             $"{entityName}id",
@@ -89,11 +108,15 @@ namespace WARP.XrmConfigMigrationContextCreator
                                                             };
                                     break;
                                 case "targetid":
-                                    {
-                                        var id = reader.ReadElementContentAsString();
-                                        relationshipStore.AddRelationship(id);
-                                        break;
-                                    }
+                                    var id = reader.ReadElementContentAsString();
+                                    relationshipStore.AddRelationship(id);
+                                    break;
+                                case Constants.ActivityPointerRecordsElementName:
+                                    // starting an activity pointer / party list
+                                    isActivityPointer = true;
+
+                                    // TODO: Handle an activity.
+                                    break;
                             }
 
                             break;
@@ -107,6 +130,11 @@ namespace WARP.XrmConfigMigrationContextCreator
                                     break;
                                 case Constants.ManyToManyElementName:
                                     this.relationshipStores.Add(relationshipStore);
+                                    break;
+                                case Constants.ActivityPointerRecordsElementName:
+                                    isActivityPointer = false;
+
+                                    // TODO: Handle the activity.
                                     break;
                             }
 
